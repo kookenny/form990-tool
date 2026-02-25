@@ -163,11 +163,11 @@ function computeTotals(accounts, allocationMethods) {
 
 function fmt(n) {
   if (n === 0) return '—'
-  return n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+  return Math.round(n).toLocaleString('en-US')
 }
 
 function fmtTotal(n) {
-  return n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+  return Math.round(n).toLocaleString('en-US')
 }
 
 export default function Form990PartIX({ accounts, allocationMethods }) {
@@ -200,7 +200,7 @@ export default function Form990PartIX({ accounts, allocationMethods }) {
         {unallocatedTotal > 0 && (
           <div className="f990-warning">
             ⚠ {unallocated.length} account{unallocated.length !== 1 ? 's' : ''} (
-            {unallocatedTotal.toLocaleString('en-US', { minimumFractionDigits: 2 })})
+            {Math.round(unallocatedTotal).toLocaleString('en-US')})
             {' '}not yet mapped to a tax group
           </div>
         )}

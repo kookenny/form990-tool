@@ -31,7 +31,7 @@ const TBA_LINE_OPTIONS = [
 ]
 
 function formatNumber(n) {
-  return n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+  return Math.round(n).toLocaleString('en-US')
 }
 
 export default function TBAAllocation({ accounts, allocationMethods, onAccountUpdate }) {
