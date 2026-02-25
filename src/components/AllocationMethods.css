@@ -1,0 +1,306 @@
+/* ── Layout ── */
+.am-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  font-family: Inter, system-ui, sans-serif;
+  color: #1e293b;
+  text-align: left;
+}
+
+/* ── Header ── */
+.am-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.am-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem 0;
+  color: #0f172a;
+}
+
+.am-subtitle {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0;
+  max-width: 580px;
+  line-height: 1.5;
+}
+
+/* ── Shared buttons ── */
+.am-btn-primary {
+  background: #1e40af;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.am-btn-primary:hover { background: #1d4ed8; }
+
+.am-btn-secondary {
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.am-btn-secondary:hover { background: #e2e8f0; }
+
+.am-btn-icon {
+  background: none;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+  padding: 0.3rem 0.7rem;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-left: 0.35rem;
+}
+.am-btn-icon:hover { background: #f1f5f9; border-color: #94a3b8; }
+.am-btn-icon.danger { color: #dc2626; border-color: #fca5a5; }
+.am-btn-icon.danger:hover { background: #fef2f2; border-color: #dc2626; }
+
+/* ── Create / Edit form card ── */
+.am-form-card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.am-form-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 1.25rem 0;
+}
+
+.am-form-body { display: flex; flex-direction: column; gap: 1rem; }
+
+.am-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.am-field label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.am-field input {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  color: #0f172a;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.am-field input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+}
+.am-field input.error { border-color: #ef4444; }
+
+.am-field-name input { width: 320px; max-width: 100%; }
+
+.am-pct-row {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.am-pct-row .am-field input[type="number"] { width: 110px; }
+
+.am-field-total { min-width: 80px; }
+
+.am-total-display {
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  text-align: center;
+}
+.am-total-display.valid  { background: #dcfce7; color: #166534; border-color: #86efac; }
+.am-total-display.invalid { background: #fef2f2; color: #dc2626; border-color: #fca5a5; }
+
+.am-error { font-size: 0.75rem; color: #dc2626; }
+.am-error-total {
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  border-radius: 5px;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8rem;
+  color: #dc2626;
+}
+
+.am-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid #f1f5f9;
+}
+
+/* ── Empty state ── */
+.am-empty {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: #f8fafc;
+  border: 2px dashed #cbd5e1;
+  border-radius: 10px;
+  color: #64748b;
+}
+.am-empty p { margin: 0 0 0.5rem 0; }
+.am-empty p:last-of-type { margin-bottom: 1.25rem; }
+
+/* ── Methods table ── */
+.am-table-container {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.am-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.am-table thead tr {
+  background: #f8fafc;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.am-table th {
+  padding: 0.65rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #475569;
+  text-align: left;
+}
+
+.am-table td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+.am-table tbody tr:last-child td { border-bottom: none; }
+.am-table tbody tr:hover { background: #f8fafc; }
+.am-table tbody tr.row-editing { background: #eff6ff; }
+
+.cell-name { font-weight: 600; color: #0f172a; }
+.cell-pct  { font-variant-numeric: tabular-nums; color: #334155; }
+.cell-actions { text-align: right; white-space: nowrap; }
+
+/* ── Column badges ── */
+.col-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  color: #fff;
+}
+.col-b { background: #3b82f6; }
+.col-c { background: #f59e0b; }
+.col-d { background: #10b981; }
+/* ── Top row (name + type side by side) ── */
+.am-top-row {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.am-field-name { flex: 0 0 auto; }
+.am-field-name input { width: 280px; max-width: 100%; }
+.am-field-type { flex: 0 0 auto; }
+
+.am-type-select {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  color: #0f172a;
+  background: #fff;
+  min-width: 200px;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.am-type-select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+}
+
+/* ── Derived % hint shown under count inputs ── */
+.am-derived-pct {
+  font-size: 0.75rem;
+  color: #3b82f6;
+  font-weight: 600;
+  margin-top: 0.1rem;
+}
+
+/* ── Proportional pct summary under count total ── */
+.am-pct-summary {
+  font-size: 0.7rem;
+  margin-top: 0.35rem;
+  text-align: center;
+  font-weight: 600;
+}
+.sp-b-sm { color: #2563eb; }
+.sp-c-sm { color: #d97706; }
+.sp-d-sm { color: #059669; }
+
+/* ── Method type badge in table ── */
+.cell-type { white-space: nowrap; }
+.type-badge {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: 10px;
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  white-space: nowrap;
+}
+
+/* ── Raw value hint in table cells ── */
+.cell-raw {
+  font-size: 0.72rem;
+  color: #94a3b8;
+  margin-right: 0.15rem;
+}
