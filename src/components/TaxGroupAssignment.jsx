@@ -154,14 +154,14 @@ export default function TaxGroupAssignment({ accounts, onTaxGroupChange }) {
         <div className="tga-instruction-item">
           <span className="tga-instr-step">1</span>
           <div>
-            <strong>Account goes entirely into one bucket?</strong>
-            <span> Map it directly to the corresponding tax group code ending in <span className="tga-badge tga-badge-b">B</span> (Program services), <span className="tga-badge tga-badge-c">C</span> (Management &amp; general), or <span className="tga-badge tga-badge-d">D</span> (Fundraising) — or to a code with no letter suffix for lines where only column&nbsp;A applies.</span>
+            <strong>Account goes entirely into one functional classification?</strong>
+            <span> Map it directly to the corresponding tax group code ending in <strong>B</strong> (Program services), <strong>C</strong> (Management &amp; general), or <strong>D</strong> (Fundraising) — or to a code with no letter suffix for lines where only column&nbsp;A applies.</span>
           </div>
         </div>
         <div className="tga-instruction-item">
           <span className="tga-instr-step">2</span>
           <div>
-            <strong>Account needs to be split across buckets?</strong>
+            <strong>Account needs to be split across functional classifications?</strong>
             <span> Map it to <span className="tga-badge tga-badge-tba">990 Part IX to be allocated</span>, then go to the <strong>Allocation Methods</strong> tab to define your split, and finally the <strong>TBA Allocation</strong> tab to assign the method to this account.</span>
           </div>
         </div>
