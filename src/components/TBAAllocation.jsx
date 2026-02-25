@@ -138,15 +138,15 @@ export default function TBAAllocation({ accounts, allocationMethods, onAccountUp
                       <div className="split-preview">
                         <span className="sp-item sp-b">
                           <span className="sp-col">B</span>
-                          {method.pctB}% = {formatNumber(acc.cy * method.pctB / 100)}
+                          {method.pctB.toFixed(2)}% = {formatNumber(acc.cy * method.pctB / 100)}
                         </span>
                         <span className="sp-item sp-c">
                           <span className="sp-col">C</span>
-                          {method.pctC}% = {formatNumber(acc.cy * method.pctC / 100)}
+                          {method.pctC.toFixed(2)}% = {formatNumber(acc.cy * method.pctC / 100)}
                         </span>
                         <span className="sp-item sp-d">
                           <span className="sp-col">D</span>
-                          {method.pctD}% = {formatNumber(acc.cy * method.pctD / 100)}
+                          {method.pctD.toFixed(2)}% = {formatNumber(acc.cy * method.pctD / 100)}
                         </span>
                       </div>
                     ) : (
