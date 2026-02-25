@@ -279,15 +279,15 @@ export default function AllocationMethods({ methods, onChange }) {
                     <span className="type-badge">{typeLabel(m.type)}</span>
                   </td>
                   <td className="cell-pct">
-                    {m.type !== 'direct_pct' && <span className="cell-raw">{m.valB.toLocaleString()} {unitLabel(m.type)} â†’ </span>}
+                    {m.type !== 'direct_pct' && <span className="cell-raw">{m.valB.toLocaleString()} {unitLabel(m.type)} &rarr; </span>}
                     {m.pctB.toFixed(2)}%
                   </td>
                   <td className="cell-pct">
-                    {m.type !== 'direct_pct' && <span className="cell-raw">{m.valC.toLocaleString()} {unitLabel(m.type)} â†’ </span>}
+                    {m.type !== 'direct_pct' && <span className="cell-raw">{m.valC.toLocaleString()} {unitLabel(m.type)} &rarr; </span>}
                     {m.pctC.toFixed(2)}%
                   </td>
                   <td className="cell-pct">
-                    {m.type !== 'direct_pct' && <span className="cell-raw">{m.valD.toLocaleString()} {unitLabel(m.type)} â†’ </span>}
+                    {m.type !== 'direct_pct' && <span className="cell-raw">{m.valD.toLocaleString()} {unitLabel(m.type)} &rarr; </span>}
                     {m.pctD.toFixed(2)}%
                   </td>
                   <td className="cell-actions">
