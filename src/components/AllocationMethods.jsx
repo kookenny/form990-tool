@@ -197,7 +197,7 @@ export default function AllocationMethods({ methods, onChange }) {
                 return (
                   <div className="am-field" key={key}>
                     <label>
-                      <span className={`col-badge ${colorClass}`}>{key}</span>
+                      <strong>({key})</strong>
                       {label}
                       {form.type === 'direct_pct' ? ' %' : ` (${unitLabel(form.type)})`}
                     </label>
@@ -265,9 +265,9 @@ export default function AllocationMethods({ methods, onChange }) {
               <tr>
                 <th>Method name</th>
                 <th>Method type</th>
-                <th><span className="col-badge col-b">B</span> Program services</th>
-                <th><span className="col-badge col-c">C</span> Management & general</th>
-                <th><span className="col-badge col-d">D</span> Fundraising</th>
+                <th><strong>(B)</strong> Program services</th>
+                <th><strong>(C)</strong> Management & general</th>
+                <th><strong>(D)</strong> Fundraising</th>
                 <th></th>
               </tr>
             </thead>

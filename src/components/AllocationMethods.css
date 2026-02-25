@@ -225,18 +225,7 @@
 .cell-pct  { font-variant-numeric: tabular-nums; color: #334155; }
 .cell-actions { text-align: right; white-space: nowrap; }
 
-/* ── Column badges ── */
-.col-badge {
-  display: inline-block;
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 0.1rem 0.4rem;
-  border-radius: 4px;
-  color: #fff;
-}
-.col-b { background: #3b82f6; }
-.col-c { background: #f59e0b; }
-.col-d { background: #10b981; }
+
 /* ── Top row (name + type side by side) ── */
 .am-top-row {
   display: flex;
