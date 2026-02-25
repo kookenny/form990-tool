@@ -102,16 +102,12 @@ function formatNumber(n) {
 
 export default function TaxGroupAssignment({ accounts, onTaxGroupChange }) {
   const [sortDir, setSortDir] = useState('asc')
-  const [saved, setSaved] = useState(false)
 
   const handleSort = () => setSortDir(prev => prev === 'asc' ? 'desc' : 'asc')
 
   const handleTaxGroupChange = (id, value) => {
-    setSaved(false)
     onTaxGroupChange(id, value)
   }
-
-  const handleSave = () => setSaved(true)
 
   const displayAccounts = [...accounts].sort((a, b) =>
     sortDir === 'asc'
@@ -131,24 +127,13 @@ export default function TaxGroupAssignment({ accounts, onTaxGroupChange }) {
             Form 990 – Part IX Statement of Functional Expenses
           </p>
         </div>
-        <div className="tga-header-actions">
-          <span className="tga-progress">
-            {assignedCount} / {accounts.length} accounts assigned
-            {tbaCount > 0 && (
-              <span className="tga-progress-tba">{tbaCount} pending allocation</span>
-            )}
-          </span>
-          <button className="tga-btn-save" onClick={handleSave}>
-            Save
-          </button>
-        </div>
+        <span className="tga-progress">
+          {assignedCount} / {accounts.length} accounts assigned
+          {tbaCount > 0 && (
+            <span className="tga-progress-tba">{tbaCount} pending allocation</span>
+          )}
+        </span>
       </div>
-
-      {saved && (
-        <div className="tga-toast">
-          ✓ Tax group assignments saved successfully.
-        </div>
-      )}
 
       <div className="tga-instructions">
         <div className="tga-instruction-item">
