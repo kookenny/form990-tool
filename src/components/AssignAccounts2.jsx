@@ -305,7 +305,7 @@ export default function AssignAccounts2({ accounts, onTaxGroupChange }) {
             <input
               className="aa2-search-input"
               type="text"
-              placeholder="Search accounts\u2026"
+              placeholder="Search"
               value={leftSearch}
               onChange={e => setLeftSearch(e.target.value)}
             />
@@ -356,7 +356,7 @@ export default function AssignAccounts2({ accounts, onTaxGroupChange }) {
             <input
               className="aa2-search-input"
               type="text"
-              placeholder="Search tax groups\u2026"
+              placeholder="Search"
               value={rightSearch}
               onChange={e => setRightSearch(e.target.value)}
             />
