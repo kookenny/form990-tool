@@ -326,7 +326,7 @@ export default function AssignAccounts2({ accounts, onTaxGroupChange }) {
                   onDragEnd={() => setDragAccountId(null)}
                 >
                   <span className="card-num">{acc.accountNumber}</span>
-                  <span className="card-name">{acc.accountName}</span>
+                  <span className="card-name" title={acc.accountName}>{acc.accountName}</span>
                   <span className="card-bal">{fmt(acc.cy)}</span>
                 </li>
               ))}
@@ -411,7 +411,7 @@ export default function AssignAccounts2({ accounts, onTaxGroupChange }) {
                             onDragEnd={() => setDragAccountId(null)}
                           >
                             <span className="chip-num">{acc.accountNumber}</span>
-                            <span className="chip-name">{acc.accountName}</span>
+                            <span className="chip-name" title={acc.accountName}>{acc.accountName}</span>
                             <span className="chip-bal">{fmt(acc.cy)}</span>
                             <button
                               className="chip-remove"
