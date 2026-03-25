@@ -7,12 +7,16 @@ import Form990PartIX from './components/Form990PartIX'
 import './App.css'
 
 const INITIAL_ACCOUNTS = [
-  { id: 1, accountNumber: '5100', accountName: 'Director salary',            cy: 180000, py: 170000, taxGroup: '', tbaLine: '', tbaMethodId: '' },
-  { id: 2, accountNumber: '5200', accountName: 'Program staff salaries',     cy: 750000, py: 700000, taxGroup: '', tbaLine: '', tbaMethodId: '' },
-  { id: 3, accountNumber: '5300', accountName: 'Development staff salaries', cy: 220000, py: 200000, taxGroup: '', tbaLine: '', tbaMethodId: '' },
-  { id: 4, accountNumber: '6100', accountName: 'Office rent',                cy: 120000, py: 120000, taxGroup: '', tbaLine: '', tbaMethodId: '' },
-  { id: 5, accountNumber: '7200', accountName: 'Audit fees',                 cy:  35000, py:  35000, taxGroup: '', tbaLine: '', tbaMethodId: '' },
-  { id: 6, accountNumber: '7400', accountName: 'Special event expenses',     cy:  90000, py: 100000, taxGroup: '', tbaLine: '', tbaMethodId: '' },
+  { id: 1,  accountNumber: '5100-100-PGM', accountName: 'Program Staff Salaries',     cy: 750000, py: 700000, taxGroup: '', tbaLine: '', tbaMethodId: '' },
+  { id: 2,  accountNumber: '5100-200-ADM', accountName: 'Administrative Salaries',    cy: 180000, py: 165000, taxGroup: '', tbaLine: '', tbaMethodId: '' },
+  { id: 3,  accountNumber: '5100-300-FND', accountName: 'Development Salaries',       cy: 220000, py: 200000, taxGroup: '', tbaLine: '', tbaMethodId: '' },
+  { id: 4,  accountNumber: '5100',         accountName: 'Salaries',                   cy: 180000, py: 170000, taxGroup: '', tbaLine: '', tbaMethodId: '' },
+  { id: 5,  accountNumber: '5200',         accountName: 'Payroll Taxes',              cy:  95000, py:  88000, taxGroup: '', tbaLine: '', tbaMethodId: '' },
+  { id: 6,  accountNumber: '6100',         accountName: 'Office Rent',                cy: 120000, py: 115000, taxGroup: '', tbaLine: '', tbaMethodId: '' },
+  { id: 7,  accountNumber: '6150',         accountName: 'Utilities Expense',          cy:  40000, py:  38000, taxGroup: '', tbaLine: '', tbaMethodId: '' },
+  { id: 8,  accountNumber: '7200-200-ADM', accountName: 'Audit & Accounting Fees',    cy:  35000, py:  32000, taxGroup: '', tbaLine: '', tbaMethodId: '' },
+  { id: 9,  accountNumber: '7300-300-FND', accountName: 'Fundraising Event Expenses', cy:  90000, py:  85000, taxGroup: '', tbaLine: '', tbaMethodId: '' },
+  { id: 10, accountNumber: '7500-100-PGM', accountName: 'Program Supplies',           cy: 110000, py: 105000, taxGroup: '', tbaLine: '', tbaMethodId: '' },
 ]
 
 export default function App() {
