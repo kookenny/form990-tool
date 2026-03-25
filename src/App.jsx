@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import TaxGroupAssignment from './components/TaxGroupAssignment'
+import AssignAccounts2 from './components/AssignAccounts2'
 import AllocationMethods from './components/AllocationMethods'
 import TBAAllocation from './components/TBAAllocation'
 import Form990PartIX from './components/Form990PartIX'
@@ -41,6 +42,13 @@ export default function App() {
           Tax Group Assignment
         </button>
         <button
+          className={`tab-btn ${activeTab === 'assign2' ? 'active' : ''}`}
+          onClick={() => setActiveTab('assign2')}
+        >
+          Assign Accounts
+          <span className="tab-badge-v2">2.0</span>
+        </button>
+        <button
           className={`tab-btn ${activeTab === 'allocations' ? 'active' : ''}`}
           onClick={() => setActiveTab('allocations')}
         >
@@ -71,6 +79,12 @@ export default function App() {
       <div className="tab-content">
         {activeTab === 'assignment' && (
           <TaxGroupAssignment
+            accounts={accounts}
+            onTaxGroupChange={handleTaxGroupChange}
+          />
+        )}
+        {activeTab === 'assign2' && (
+          <AssignAccounts2
             accounts={accounts}
             onTaxGroupChange={handleTaxGroupChange}
           />
