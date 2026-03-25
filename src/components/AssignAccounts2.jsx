@@ -105,14 +105,42 @@ function getDesc(label) {
 
 export default function AssignAccounts2({ accounts, onTaxGroupChange }) {
   const [selectedIds, setSelectedIds] = useState(new Set())
+  const [selectedChipIds, setSelectedChipIds] = useState(new Set())
   const [hoveredGroup, setHoveredGroup] = useState(null)
   const [dragAccountId, setDragAccountId] = useState(null)
   const [dragOverGroup, setDragOverGroup] = useState(null)
   const [dragOverLeft, setDragOverLeft] = useState(false)
+  const [leftSearch, setLeftSearch] = useState('')
+  const [rightSearch, setRightSearch] = useState('')
   const lastIdxRef = useRef(null)
+  const lastChipIdxRef = useRef(null)
 
   const unassigned = accounts.filter(a => !a.taxGroup)
   const assignedCount = accounts.filter(a => a.taxGroup).length
+
+  const lq = leftSearch.trim().toLowerCase()
+  const filteredUnassigned = lq
+    ? unassigned.filter(a =>
+        a.accountNumber.toLowerCase().includes(lq) ||
+        a.accountName.toLowerCase().includes(lq)
+      )
+    : unassigned
+
+  const rq = rightSearch.trim().toLowerCase()
+  const filteredGroups = rq
+    ? TAX_GROUPS.filter(g =>
+        g.value.toLowerCase().includes(rq) ||
+        g.label.toLowerCase().includes(rq) ||
+        accounts.some(a => a.taxGroup === g.value && (
+          a.accountNumber.toLowerCase().includes(rq) ||
+          a.accountName.toLowerCase().includes(rq)
+        ))
+      )
+    : TAX_GROUPS
+
+  const allAssignedFlat = filteredGroups.flatMap(g =>
+    accounts.filter(a => a.taxGroup === g.value)
+  )
 
   // ── Selection ──────────────────────────────────────────────────────────────
 
@@ -123,7 +151,7 @@ export default function AssignAccounts2({ accounts, onTaxGroupChange }) {
       const hi = Math.max(lastIdxRef.current, idx)
       setSelectedIds(prev => {
         const next = new Set(prev)
-        unassigned.slice(lo, hi + 1).forEach(a => next.add(a.id))
+        filteredUnassigned.slice(lo, hi + 1).forEach(a => next.add(a.id))
         return next
       })
     } else if (e.ctrlKey || e.metaKey) {
@@ -148,7 +176,36 @@ export default function AssignAccounts2({ accounts, onTaxGroupChange }) {
 
   const unassignAccount = (id) => {
     onTaxGroupChange(id, '')
+    setSelectedChipIds(prev => { const n = new Set(prev); n.delete(id); return n })
   }
+
+  const unassignSelected = () => {
+    ;[...selectedChipIds].forEach(id => onTaxGroupChange(id, ''))
+    setSelectedChipIds(new Set())
+  }
+
+  const handleChipClick = (acc, flatIdx, e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (e.shiftKey && lastChipIdxRef.current !== null) {
+      const lo = Math.min(lastChipIdxRef.current, flatIdx)
+      const hi = Math.max(lastChipIdxRef.current, flatIdx)
+      setSelectedChipIds(prev => {
+        const next = new Set(prev)
+        allAssignedFlat.slice(lo, hi + 1).forEach(a => next.add(a.id))
+        return next
+      })
+    } else if (e.ctrlKey || e.metaKey) {
+      setSelectedChipIds(prev => {
+        const next = new Set(prev)
+        next.has(acc.id) ? next.delete(acc.id) : next.add(acc.id)
+        return next
+      })
+      lastChipIdxRef.current = flatIdx
+    } else {
+      setSelectedChipIds(new Set([acc.id]))
+      lastChipIdxRef.current = flatIdx
+    }  }
 
   // ── Drag from left pane ────────────────────────────────────────────────────
 
@@ -166,7 +223,8 @@ export default function AssignAccounts2({ accounts, onTaxGroupChange }) {
   const handleDragFromRight = (e, accId) => {
     e.stopPropagation()
     setDragAccountId(accId)
-    setSelectedIds(new Set()) // chip drags alone
+    if (!selectedChipIds.has(accId)) setSelectedChipIds(new Set([accId]))
+    setSelectedIds(new Set())
   }
 
   // ── Drop handlers ──────────────────────────────────────────────────────────
@@ -181,8 +239,12 @@ export default function AssignAccounts2({ accounts, onTaxGroupChange }) {
       ;[...selectedIds].forEach(id => onTaxGroupChange(id, groupValue))
       setSelectedIds(new Set())
     } else {
-      // Dragged from another group – reassign single account
-      onTaxGroupChange(dragAccountId, groupValue)
+      // Dragged from right pane chip – reassign all selected chips
+      const toMove = selectedChipIds.has(dragAccountId) && selectedChipIds.size > 0
+        ? [...selectedChipIds]
+        : [dragAccountId]
+      toMove.forEach(id => onTaxGroupChange(id, groupValue))
+      setSelectedChipIds(new Set())
     }
     setDragAccountId(null)
     setDragOverGroup(null)
@@ -191,7 +253,13 @@ export default function AssignAccounts2({ accounts, onTaxGroupChange }) {
   const handleDropOnLeft = () => {
     if (dragAccountId !== null) {
       const acc = accounts.find(a => a.id === dragAccountId)
-      if (acc && acc.taxGroup) onTaxGroupChange(dragAccountId, '')
+      if (acc && acc.taxGroup) {
+        const toUnassign = selectedChipIds.has(dragAccountId) && selectedChipIds.size > 0
+          ? [...selectedChipIds]
+          : [dragAccountId]
+        toUnassign.forEach(id => onTaxGroupChange(id, ''))
+        setSelectedChipIds(new Set())
+      }
     }
     setDragAccountId(null)
     setDragOverLeft(false)
@@ -209,7 +277,7 @@ export default function AssignAccounts2({ accounts, onTaxGroupChange }) {
           </h1>
           <p className="aa2-subtitle">
             Select accounts on the left and click <strong>Assign</strong> on the target tax group, or drag and drop.
-            Use <kbd>Ctrl</kbd>+click or <kbd>Shift</kbd>+click to multi-select.
+            Use <kbd>Ctrl</kbd>+click or <kbd>Shift</kbd>+click to multi-select in either pane.
           </p>
         </div>
         <span className="aa2-progress">
@@ -233,12 +301,24 @@ export default function AssignAccounts2({ accounts, onTaxGroupChange }) {
               <span className="aa2-sel-pill">{selectedIds.size} selected</span>
             )}
           </div>
+          <div className="aa2-search-bar">
+            <input
+              className="aa2-search-input"
+              type="text"
+              placeholder="Search accounts\u2026"
+              value={leftSearch}
+              onChange={e => setLeftSearch(e.target.value)}
+            />
+            {leftSearch && <button className="aa2-search-clear" onClick={() => setLeftSearch('')}>&times;</button>}
+          </div>
 
           {unassigned.length === 0 ? (
             <div className="aa2-all-done">\u2713 All accounts assigned</div>
+          ) : filteredUnassigned.length === 0 ? (
+            <div className="aa2-no-results">No matches for "{leftSearch}"</div>
           ) : (
             <ul className="aa2-card-list">
-              {unassigned.map((acc, idx) => (
+              {filteredUnassigned.map((acc, idx) => (
                 <li
                   key={acc.id}
                   className={`aa2-card${selectedIds.has(acc.id) ? ' sel' : ''}`}
@@ -260,13 +340,31 @@ export default function AssignAccounts2({ accounts, onTaxGroupChange }) {
         <div className="aa2-right-pane">
           <div className="aa2-pane-head aa2-right-head">
             <span className="aa2-pane-label">Tax Groups</span>
+            {selectedChipIds.size > 0 && (
+              <>
+                <span className="aa2-sel-pill">{selectedChipIds.size} selected</span>
+                <button className="aa2-unassign-sel-btn" onClick={unassignSelected}>
+                  Unassign ({selectedChipIds.size})
+                </button>
+              </>
+            )}
             <span className="aa2-col-head">{CY_LABEL}</span>
             <span className="aa2-col-head">{PY_LABEL}</span>
             <span className="aa2-col-head-action" />
           </div>
+          <div className="aa2-search-bar">
+            <input
+              className="aa2-search-input"
+              type="text"
+              placeholder="Search tax groups\u2026"
+              value={rightSearch}
+              onChange={e => setRightSearch(e.target.value)}
+            />
+            {rightSearch && <button className="aa2-search-clear" onClick={() => setRightSearch('')}>&times;</button>}
+          </div>
 
           <div className="aa2-group-scroll">
-            {TAX_GROUPS.map(group => {
+            {filteredGroups.map(group => {
               const assigned = accounts.filter(a => a.taxGroup === group.value)
               const cyTotal = assigned.reduce((s, a) => s + a.cy, 0)
               const pyTotal = assigned.reduce((s, a) => s + a.py, 0)
@@ -303,24 +401,28 @@ export default function AssignAccounts2({ accounts, onTaxGroupChange }) {
 
                   {assigned.length > 0 && (
                     <div className="aa2-chips">
-                      {assigned.map(acc => (
-                        <div
-                          key={acc.id}
-                          className="aa2-chip"
-                          draggable
-                          onDragStart={e => handleDragFromRight(e, acc.id)}
-                          onDragEnd={() => setDragAccountId(null)}
-                        >
-                          <span className="chip-num">{acc.accountNumber}</span>
-                          <span className="chip-name">{acc.accountName}</span>
-                          <span className="chip-bal">{fmt(acc.cy)}</span>
-                          <button
-                            className="chip-remove"
-                            onClick={e => { e.stopPropagation(); unassignAccount(acc.id) }}
-                            title="Remove assignment"
-                          >&times;</button>
-                        </div>
-                      ))}
+                      {assigned.map(acc => {
+                        const flatIdx = allAssignedFlat.findIndex(a => a.id === acc.id)
+                        return (
+                          <div
+                            key={acc.id}
+                            className={`aa2-chip${selectedChipIds.has(acc.id) ? ' sel' : ''}`}
+                            draggable
+                            onClick={e => handleChipClick(acc, flatIdx, e)}
+                            onDragStart={e => handleDragFromRight(e, acc.id)}
+                            onDragEnd={() => setDragAccountId(null)}
+                          >
+                            <span className="chip-num">{acc.accountNumber}</span>
+                            <span className="chip-name">{acc.accountName}</span>
+                            <span className="chip-bal">{fmt(acc.cy)}</span>
+                            <button
+                              className="chip-remove"
+                              onClick={e => { e.stopPropagation(); unassignAccount(acc.id) }}
+                              title="Remove assignment"
+                            >&times;</button>
+                          </div>
+                        )
+                      })}
                     </div>
                   )}
                 </div>

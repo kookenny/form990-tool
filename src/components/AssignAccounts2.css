@@ -410,3 +410,82 @@
 .chip-remove:hover {
   color: #ef4444;
 }
+
+/* ── Search bars ── */
+.aa2-search-bar {
+  position: relative;
+  padding: 0.4rem 0.5rem;
+  border-bottom: 1px solid #f1f5f9;
+  flex-shrink: 0;
+}
+
+.aa2-search-input {
+  width: 100%;
+  padding: 0.35rem 1.8rem 0.35rem 0.65rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  color: #0f172a;
+  background: #f8fafc;
+  box-sizing: border-box;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.aa2-search-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59,130,246,0.15);
+  background: #fff;
+}
+
+.aa2-search-clear {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 1rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+}
+
+.aa2-search-clear:hover {
+  color: #475569;
+}
+
+/* ── No-results message ── */
+.aa2-no-results {
+  padding: 1.5rem 1rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+/* ── Selected chip styling ── */
+.aa2-chip.sel {
+  border-color: #3b82f6;
+  background: #eff6ff;
+  box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
+}
+
+/* ── Unassign selected button (right pane header) ── */
+.aa2-unassign-sel-btn {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fca5a5;
+  padding: 0.2rem 0.65rem;
+  border-radius: 5px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+
+.aa2-unassign-sel-btn:hover {
+  background: #fee2e2;
+  border-color: #dc2626;
+}
