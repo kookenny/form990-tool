@@ -131,7 +131,7 @@
 
 /* ── LEFT PANE ── */
 .aa2-left-pane {
-  flex: 0 0 280px;
+  flex: 0 0 360px;
   transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
 }
 
