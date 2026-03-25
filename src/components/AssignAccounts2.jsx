@@ -312,9 +312,7 @@ export default function AssignAccounts2({ accounts, onTaxGroupChange }) {
             {leftSearch && <button className="aa2-search-clear" onClick={() => setLeftSearch('')}>&times;</button>}
           </div>
 
-          {unassigned.length === 0 ? (
-            <div className="aa2-all-done">\u2713 All accounts assigned</div>
-          ) : filteredUnassigned.length === 0 ? (
+          {filteredUnassigned.length === 0 && lq ? (
             <div className="aa2-no-results">No matches for "{leftSearch}"</div>
           ) : (
             <ul className="aa2-card-list">
